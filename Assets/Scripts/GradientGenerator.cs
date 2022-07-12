@@ -27,7 +27,7 @@ public class LinearGradient : Gradient
             for (int j = 0; j < height; j++)
             {
                 int x = i;
-                float colorValue = x / halfWidth;
+                float colorValue = (float)x / width;
                 colorValue *= Mathf.Pow(colorValue, figureSize);
                 gradient[i, j] = colorValue;
             }
