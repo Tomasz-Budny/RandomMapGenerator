@@ -69,9 +69,6 @@ public class MapGenerator : MonoBehaviour
             case GradientType.Square:
                 gradient = new SquareGradient(power);
                 break;
-            default:
-                gradient = new Gradient(power);
-                break;
         }
     }
 
