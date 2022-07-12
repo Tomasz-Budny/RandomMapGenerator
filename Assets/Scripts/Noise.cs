@@ -2,9 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public static class Noise
+[System.Serializable]
+public class Noise
 {
-    public static float[,] GenerateNoise(int mapWidth, int mapHeight, int seed, float perlinScale, int octaves, float persistance, float lacunarity, Vector2 offSet)
+    public float noiseScale;
+    public int octaves;
+    [Range(0, 1)]
+    public float persistance;
+    [Range(1, 3)]
+    public float lacunarity;
+    public int seed;
+    public Vector2 offSet;
+    public float[,] GenerateNoise(int mapWidth, int mapHeight)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
 
@@ -37,8 +46,8 @@ public static class Noise
                 for (int i = 0; i < octaves; i++)
                 {
                     
-                    float xCoord = (x - halfWidth) / perlinScale * frequency + octaveOffsets[i].x;
-                    float yCoord = (y - halfHeight) / perlinScale * frequency + octaveOffsets[i].y;
+                    float xCoord = (x - halfWidth) / noiseScale * frequency + octaveOffsets[i].x;
+                    float yCoord = (y - halfHeight) / noiseScale * frequency + octaveOffsets[i].y;
                     float noiseVal = Mathf.PerlinNoise(xCoord, yCoord) * 2 - 1;
 
                     noiseHeight += noiseVal * amplitude;
@@ -60,7 +69,7 @@ public static class Noise
         return noiseMap;
     }
 
-    private static float[,] NormalizeNoiseMapUsingInverseLerp(float[,] noiseMap, float minNoiseHeight, float maxNoiseHeight)
+    private  float[,] NormalizeNoiseMapUsingInverseLerp(float[,] noiseMap, float minNoiseHeight, float maxNoiseHeight)
     {
         int mapHeight = noiseMap.GetLength(1);
         int mapWidth = noiseMap.GetLength(0);
@@ -76,9 +85,9 @@ public static class Noise
         return noiseMap;
     }
 
-    public static float[,] GeneratePerlinNoiseModifiedByGrad(int mapWidth, int mapHeight, int seed, float perlinScale, int octaves, float persistance, float lacunarity, Vector2 offSet, float[,] gradientMap)
+    public  float[,] GeneratePerlinNoiseModifiedByGrad(int mapWidth, int mapHeight, float[,] gradientMap)
     {
-        float[,] noiseMap = GenerateNoise(mapWidth, mapHeight, seed, perlinScale, octaves, persistance, lacunarity, offSet);
+        float[,] noiseMap = GenerateNoise(mapWidth, mapHeight);
 
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;

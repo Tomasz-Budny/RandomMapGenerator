@@ -5,28 +5,18 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColourMap }
-    public enum TypeOfGeneratedTerrain { Normal, Island}
     public enum GradientType { Linear, Radial, Square}
 
     public GradientType gradientType;
     [Range(-1, 10)]
     public float power;
     public Gradient gradient;
-    public TypeOfGeneratedTerrain typeOfGeneratedTerrain;
-    [Range(0,10)]
-    public float middleSquereSize;
     public DrawMode drawMode;
 
     public int mapWidth;
     public int mapHeight;
-    public float noiseScale;
-    public int octaves;
-    [Range(0, 1)]
-    public float persistance;
-    [Range(1, 3)]
-    public float lacunarity;
-    public int seed;
-    public Vector2 offSet;
+
+    public Noise noise;
 
     public bool autoUpdate;
 
@@ -39,7 +29,7 @@ public class MapGenerator : MonoBehaviour
 
         GenerateGradientBasingOnGradientType();
         gradMap = GenerateGradArrDependingOnGradientType();
-        noiseMap = Noise.GeneratePerlinNoiseModifiedByGrad(mapWidth, mapHeight, seed, noiseScale, octaves, persistance, lacunarity, offSet, gradMap);
+        noiseMap = noise.GeneratePerlinNoiseModifiedByGrad(mapWidth, mapHeight, gradMap);
 
         Color[] colourMap = new Color[mapWidth * mapHeight];
 
@@ -112,12 +102,6 @@ public class MapGenerator : MonoBehaviour
             mapHeight = 1;
         if (mapWidth < 1)
             mapWidth = 1;
-
-        if (lacunarity < 1)
-            lacunarity = 1;
-
-        if (octaves < 0)
-            octaves = 1;
     }
 }
 
