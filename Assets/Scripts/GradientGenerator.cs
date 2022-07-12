@@ -2,17 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Gradient
+public abstract class Gradient
 {
-    public Gradient(float figureSize)
+    protected Gradient(float figureSize)
     {
         this.figureSize = figureSize;
     }
     public float figureSize;
-    public virtual float[,] Generate(int width, int height)
-    {
-        return new float[width, height];
-    }
+    public abstract float[,] Generate(int width, int height);
      
 }
 
@@ -35,7 +32,6 @@ public class LinearGradient : Gradient
                 gradient[i, j] = colorValue;
             }
         }
-
         return gradient;
     }
 }
