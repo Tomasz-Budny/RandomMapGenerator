@@ -5,12 +5,9 @@ using UnityEngine;
 public class MapGenerator : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColourMap }
-    public enum GradientType { Linear, Radial, Square}
 
-    public GradientType gradientType;
-    [Range(-1, 10)]
-    public float power;
-    public Gradient gradient;
+
+    public GradientSetsManager gradient;
     public DrawMode drawMode;
 
     public int mapWidth;
@@ -27,8 +24,8 @@ public class MapGenerator : MonoBehaviour
         float[,] noiseMap;
         float[,] gradMap;
 
-        GenerateGradientBasingOnGradientType();
-        gradMap = GenerateGradArrDependingOnGradientType();
+        Gradient grad = gradient.GenerateGradientBasedOnGradientType();
+        gradMap = grad.Generate(mapWidth, mapHeight);
         noiseMap = noise.GeneratePerlinNoiseModifiedByGrad(mapWidth, mapHeight, gradMap);
 
         Color[] colourMap = new Color[mapWidth * mapHeight];
@@ -55,36 +52,6 @@ public class MapGenerator : MonoBehaviour
             displayMap.DrawTexture(TextureGenerator.TextureFromColourMap(colourMap, mapWidth, mapHeight));
         }
         GenerateGradient(gradMap);
-    }
-    private void GenerateGradientBasingOnGradientType()
-    {
-        switch (gradientType)
-        {
-            case GradientType.Linear:
-                gradient = new LinearGradient(power);
-                break;
-            case GradientType.Radial:
-                gradient = new RadialGradient(power);
-                break;
-            case GradientType.Square:
-                gradient = new SquareGradient(power);
-                break;
-        }
-    }
-
-    private float[,] GenerateGradArrDependingOnGradientType()
-    {
-        switch(gradientType)
-        {
-            case GradientType.Linear:
-                return ((LinearGradient)gradient).Generate(mapWidth, mapHeight);
-            case GradientType.Radial:
-                return ((RadialGradient)gradient).Generate(mapWidth, mapHeight);
-            case GradientType.Square:
-                return ((SquareGradient)gradient).Generate(mapWidth, mapHeight);
-            default:
-                return new float[mapWidth, mapHeight];
-        }
     }
 
     public void GenerateGradient(float[,] gradient)
