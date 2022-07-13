@@ -58,7 +58,7 @@ public class GradientTypeManager
             case GradientType.Linear:
                 return new LinearGradient(figureSize);
             case GradientType.Radial:
-                return new RadialGradient(figureSize);
+                return new RadialGradient(figureSize, figurePosition);
             case GradientType.Square:
                 return new SquareGradient(figureSize);
             default:

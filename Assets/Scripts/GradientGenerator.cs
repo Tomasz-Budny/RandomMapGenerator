@@ -73,7 +73,8 @@ public class SquareGradient : Gradient
 
 public class RadialGradient : Gradient
 {
-    public RadialGradient(float figureSize): base(figureSize) { }
+    Vector2 position;
+    public RadialGradient(float figureSize, Vector2 position): base(figureSize) { this.position = position; }
     public override float[,] Generate(int width, int height)
     {
         int halfWidth = width / 2;
@@ -89,7 +90,7 @@ public class RadialGradient : Gradient
                 int y = j;
 
                 float colorValue;
-                float distanceToCenter = Mathf.Sqrt(Mathf.Pow(x - halfWidth, 2) + Mathf.Pow(y - halfHeight, 2));
+                float distanceToCenter = Mathf.Sqrt(Mathf.Pow(x - halfWidth + position.x, 2) + Mathf.Pow(y - halfHeight + position.y, 2));
                 distanceToCenter = distanceToCenter / (Mathf.Sqrt(2) * halfWidth);
                 colorValue = distanceToCenter;
                 colorValue *= Mathf.Pow(colorValue, figureSize);
