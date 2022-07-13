@@ -92,7 +92,7 @@ public class RadialGradient : Gradient
                 float colorValue;
                 float distanceToCenter = Mathf.Sqrt(Mathf.Pow(x - halfWidth + position.x, 2) + Mathf.Pow(y - halfHeight + position.y, 2));
                 distanceToCenter = distanceToCenter / (Mathf.Sqrt(2) * halfWidth);
-                colorValue = distanceToCenter;
+                colorValue = 1 - distanceToCenter;
                 colorValue *= Mathf.Pow(colorValue, figureSize);
                 gradient[i, j] = colorValue;
             }

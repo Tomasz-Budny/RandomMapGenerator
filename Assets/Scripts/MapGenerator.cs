@@ -6,8 +6,7 @@ public class MapGenerator : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColourMap }
 
-
-    public GradientTypeManager gradient;
+    public GradientTypeManagerCollection gradients;
     public DrawMode drawMode;
 
     public int mapWidth;
@@ -24,8 +23,7 @@ public class MapGenerator : MonoBehaviour
         float[,] noiseMap;
         float[,] gradMap;
 
-        Gradient grad = gradient.GenerateGradientBasedOnGradientType();
-        gradMap = grad.Generate(mapWidth, mapHeight);
+        gradMap = gradients.GetCombinedGradientsArray(mapWidth, mapHeight);
         noiseMap = noise.GeneratePerlinNoiseModifiedByGrad(mapWidth, mapHeight, gradMap);
 
         Color[] colourMap = new Color[mapWidth * mapHeight];

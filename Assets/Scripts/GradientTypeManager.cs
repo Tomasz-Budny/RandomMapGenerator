@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GradientTypeManagerCollection
 {
     public GradientTypeManager[] gradients;
@@ -9,10 +10,8 @@ public class GradientTypeManagerCollection
     public float[,] GetCombinedGradientsArray(int width, int height)
     {
         float[,] combinedArray = new float[width, height];
-        float maxHeight = float.MinValue;
-        float minHeight = float.MaxValue;
 
-        foreach(GradientTypeManager gtm in gradients)
+        foreach (GradientTypeManager gtm in gradients)
         {
             Gradient gradient = gtm.GenerateGradientBasedOnGradientType();
             float[,] gradientMap = gradient.Generate(width, height);
@@ -20,21 +19,17 @@ public class GradientTypeManagerCollection
             {
                 for (int y = 0; y < height; y++)
                 {
-                    combinedArray[x, y] += gradientMap[x, y];
-                    float currentHeight = combinedArray[x, y];
-
-                    if (maxHeight < currentHeight)
-                        maxHeight = currentHeight;
-                    if (minHeight > currentHeight)
-                        minHeight = currentHeight;
+                    float val = combinedArray[x, y] + gradientMap[x, y];
+                    if (val >= 1)
+                    {
+                        combinedArray[x, y] = 1;
+                    }
+                    else
+                    {
+                        combinedArray[x, y] += gradientMap[x, y];
+                    }
+                    
                 }
-            }
-        }
-        for (int x = 0; x < width; x++)
-        {
-            for (int y = 0; y < height; y++)
-            {
-                combinedArray[x, y] = Mathf.InverseLerp(minHeight, maxHeight, combinedArray[x, y]);
             }
         }
         return combinedArray;

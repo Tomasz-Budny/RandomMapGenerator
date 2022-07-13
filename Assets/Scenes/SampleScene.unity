@@ -154,19 +154,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38238ceec2ab7454b9110de3c4e16883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradientType: 1
-  power: -0.2
-  typeOfGeneratedTerrain: 0
-  middleSquereSize: 0
+  gradients:
+    gradients:
+    - gradientType: 0
+      figureSize: 1
+      figurePosition: {x: 0.4, y: 0}
+    - gradientType: 0
+      figureSize: 1
+      figurePosition: {x: 0.4, y: 0}
   drawMode: 1
   mapWidth: 400
   mapHeight: 400
   noise:
-    seed: 16
-    perlinScale: 61.41
+    noiseScale: 80
     octaves: 11
-    persistance: 2.97
-    lacunarity: 0.5
+    persistance: 0.5
+    lacunarity: 2.3
+    seed: 18
     offSet: {x: 4.59, y: 1.39}
   autoUpdate: 1
   regions:
