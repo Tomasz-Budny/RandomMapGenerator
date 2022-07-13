@@ -7,7 +7,7 @@ public class MapGenerator : MonoBehaviour
     public enum DrawMode { NoiseMap, ColourMap }
 
 
-    public GradientSetsManager gradient;
+    public GradientTypeManager gradient;
     public DrawMode drawMode;
 
     public int mapWidth;

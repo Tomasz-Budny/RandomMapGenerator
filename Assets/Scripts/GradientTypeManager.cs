@@ -2,8 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class GradientSetsCollection
+{
+
+}
+
+
 [System.Serializable]
-public class GradientSetsManager
+public class GradientTypeManager
 {
     public enum GradientType { Linear, Radial, Square }
 
