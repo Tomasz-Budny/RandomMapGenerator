@@ -26,13 +26,21 @@ public class GradientTypeManagerCollection
                     }
                     else
                     {
-                        combinedArray[x, y] += gradientMap[x, y];
+                        combinedArray[x, y] = val;
                     }
                 }
             }
         }
 
-        return combinedArray;
+        for (int x = 0; x < width; x++)
+        {
+            for (int y = 0; y < height; y++)
+            {
+                combinedArray[x, y] = (combinedArray[x, y] - 1) * -1;
+            }
+        }
+
+                return combinedArray;
     }
 }
 
