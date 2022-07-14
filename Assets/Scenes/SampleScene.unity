@@ -156,12 +156,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gradients:
     gradients:
-    - gradientType: 0
-      figureSize: 1
-      figurePosition: {x: 0.4, y: 0}
-    - gradientType: 0
-      figureSize: 1
-      figurePosition: {x: 0.4, y: 0}
+    - gradientType: 2
+      figureSize: 4.76
+      figurePosition: {x: 59.53, y: 0}
+    - gradientType: 1
+      figureSize: 4.89
+      figurePosition: {x: -3.37, y: 0}
   drawMode: 1
   mapWidth: 400
   mapHeight: 400
@@ -171,7 +171,7 @@ MonoBehaviour:
     persistance: 0.5
     lacunarity: 2.3
     seed: 18
-    offSet: {x: 4.59, y: 1.39}
+    offSet: {x: 183.7, y: 1.39}
   autoUpdate: 1
   regions:
   - name: deeps
@@ -203,10 +203,13 @@ MonoBehaviour:
     colour: {r: 0.3018868, g: 0.05268779, b: 0.05268779, a: 0}
   - name: mountainsUplands
     height: 0.95
-    colour: {r: 0.084905684, g: 0.019624429, b: 0.019624429, a: 0}
+    colour: {r: 0.8207547, g: 0.80139726, b: 0.80139726, a: 0}
   - name: mountainsTops
     height: 1
     colour: {r: 1, g: 1, b: 1, a: 0}
+  - name: "b\u0142\u0105d"
+    height: 50
+    colour: {r: 0.990566, g: 0.014017418, b: 0.014017418, a: 0}
 --- !u!4 &278719750
 Transform:
   m_ObjectHideFlags: 0

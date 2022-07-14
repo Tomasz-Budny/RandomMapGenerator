@@ -29,7 +29,7 @@ public class LinearGradient : Gradient
                 int x = i;
                 float colorValue = (float)x / width;
                 colorValue *= Mathf.Pow(colorValue, figureSize);
-                gradient[i, j] = colorValue;
+                gradient[i, j] = 1 - colorValue;
             }
         }
         return gradient;
@@ -61,7 +61,7 @@ public class SquareGradient : Gradient
                 int smaller = x < y ? x : y;
                 colorValue = smaller / (float)halfWidth;
 
-                colorValue = (1 - colorValue);  
+                colorValue = 1 - colorValue;  
                 colorValue *= Mathf.Pow(colorValue, figureSize);
                 gradient[i, j] = colorValue;
             }
@@ -91,8 +91,8 @@ public class RadialGradient : Gradient
 
                 float colorValue;
                 float distanceToCenter = Mathf.Sqrt(Mathf.Pow(x - halfWidth + position.x, 2) + Mathf.Pow(y - halfHeight + position.y, 2));
-                distanceToCenter = distanceToCenter / (Mathf.Sqrt(2) * halfWidth);
-                colorValue = 1 - distanceToCenter;
+                distanceToCenter = distanceToCenter / (Mathf.Sqrt(2) * halfWidth + Mathf.Abs(position.x));
+                colorValue =  1 - distanceToCenter;
                 colorValue *= Mathf.Pow(colorValue, figureSize);
                 gradient[i, j] = colorValue;
             }
