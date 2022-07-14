@@ -11,7 +11,6 @@ public class GradientTypeManagerCollection
     {
         float[,] combinedArray = new float[width, height];
 
-
         foreach (GradientTypeManager gtm in gradients)
         {
             Gradient gradient = gtm.GenerateGradientBasedOnGradientType();
@@ -29,10 +28,10 @@ public class GradientTypeManagerCollection
                     {
                         combinedArray[x, y] += gradientMap[x, y];
                     }
-                    
                 }
             }
         }
+
         return combinedArray;
     }
 }
