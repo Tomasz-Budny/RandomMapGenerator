@@ -154,14 +154,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38238ceec2ab7454b9110de3c4e16883, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gradients:
+  gradientManager:
     gradients:
     - gradientType: 2
-      figureSize: 4.76
-      figurePosition: {x: 59.53, y: 0}
-    - gradientType: 1
-      figureSize: 4.89
-      figurePosition: {x: -3.37, y: 0}
+      figureSize: 0
+      figurePosition: {x: 0, y: 0}
   drawMode: 1
   mapWidth: 400
   mapHeight: 400
