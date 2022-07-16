@@ -6,16 +6,12 @@ public class MapGenerator : MonoBehaviour
 {
     public enum DrawMode { NoiseMap, ColourMap }
 
-    public GradientTypeManagerCollection gradients;
+    public GradientTypeManagerCollection gradientManager;
     public DrawMode drawMode;
-
     public int mapWidth;
     public int mapHeight;
-
     public Noise noise;
-
     public bool autoUpdate;
-
     public TerrainType[] regions;
 
     public void GenerateMap()
@@ -23,7 +19,7 @@ public class MapGenerator : MonoBehaviour
         float[,] noiseMap;
         float[,] gradMap;
 
-        gradMap = gradients.GetCombinedGradientsArray(mapWidth, mapHeight);
+        gradMap = gradientManager.GetCombinedGradientsArray(mapWidth, mapHeight);
         noiseMap = noise.GeneratePerlinNoiseModifiedByGrad(mapWidth, mapHeight, gradMap);
 
         Color[] colourMap = new Color[mapWidth * mapHeight];
@@ -42,8 +38,7 @@ public class MapGenerator : MonoBehaviour
                 }
             }
         }
-
-        mapDisplay displayMap = FindObjectOfType<mapDisplay>();
+        MapDisplay displayMap = FindObjectOfType<MapDisplay>();
         if(drawMode == DrawMode.NoiseMap){
             displayMap.DrawTexture(TextureGenerator.TextureFromHeightMap(noiseMap));
         }else if(drawMode == DrawMode.ColourMap){
@@ -70,11 +65,6 @@ public class MapGenerator : MonoBehaviour
 [System.Serializable]
 public struct TerrainType
 {
-    public string GetName()
-    {
-        return name;
-    }
-
     public string name;
     public float height;
     public Color colour;

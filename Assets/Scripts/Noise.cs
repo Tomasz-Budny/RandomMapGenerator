@@ -13,10 +13,10 @@ public class Noise
     public float lacunarity;
     public int seed;
     public Vector2 offSet;
+
     public float[,] GenerateNoise(int mapWidth, int mapHeight)
     {
         float[,] noiseMap = new float[mapWidth, mapHeight];
-
         System.Random prng = new System.Random(seed);
         Vector2[] octaveOffsets = new Vector2[octaves];
 
@@ -24,13 +24,10 @@ public class Noise
         {
             float offSetX = prng.Next(-10000, 100000) + offSet.x;
             float offSetY = prng.Next(-10000, 100000) + offSet.y;
-
             octaveOffsets[i] = new Vector2(offSetX, offSetY);
         }
-
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
-
         float halfWidth = mapWidth / 2;
         float halfHeight = mapHeight / 2;
 
@@ -42,16 +39,13 @@ public class Noise
                 float frequency = 1;
                 float noiseHeight = 0;
 
-                // Z tego trzeba bêdzie oddzeln¹ metodê zrobiæ
                 for (int i = 0; i < octaves; i++)
                 {
-                    
                     float xCoord = (x - halfWidth) / noiseScale * frequency + octaveOffsets[i].x;
                     float yCoord = (y - halfHeight) / noiseScale * frequency + octaveOffsets[i].y;
                     float noiseVal = Mathf.PerlinNoise(xCoord, yCoord) * 2 - 1;
 
                     noiseHeight += noiseVal * amplitude;
-
                     amplitude *= persistance;
                     frequency *= lacunarity;
                 }
@@ -63,9 +57,7 @@ public class Noise
                 noiseMap[x, y] = noiseHeight;
             }
         }
-
         noiseMap = NormalizeNoiseMapUsingInverseLerp(noiseMap, minNoiseHeight, maxNoiseHeight);
-        
         return noiseMap;
     }
 
@@ -81,18 +73,15 @@ public class Noise
                 noiseMap[x, y] = Mathf.InverseLerp(minNoiseHeight, maxNoiseHeight, noiseMap[x, y]);
             }
         }
-
         return noiseMap;
     }
 
     public  float[,] GeneratePerlinNoiseModifiedByGrad(int mapWidth, int mapHeight, float[,] gradientMap)
     {
         float[,] noiseMap = GenerateNoise(mapWidth, mapHeight);
-
         float maxNoiseHeight = float.MinValue;
         float minNoiseHeight = float.MaxValue;
         float noiseHeight = 0;
-
         float[,] squareNoiseMap = new float[mapWidth, mapHeight];
 
         for (int y = 0; y < mapHeight; y++)
@@ -108,7 +97,6 @@ public class Noise
                     minNoiseHeight = noiseHeight;
             }
         }
-
         return squareNoiseMap;
     }
 }

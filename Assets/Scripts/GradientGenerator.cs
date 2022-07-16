@@ -53,16 +53,11 @@ public class SquareGradient : Gradient
             {
                 int x = i;
                 int y = j;
-
                 float colorValue;
-
                 x = x > halfWidth ? width - x : x;
                 y = y > halfHeight ? height - y : y;
-
                 int smaller = x < y ? x : y;
-                colorValue = smaller / (float)halfWidth;
-
-                colorValue = colorValue;  
+                colorValue = smaller / (float)halfWidth; 
                 colorValue *= Mathf.Pow(colorValue, figureSize);
                 gradient[i, j] = colorValue;
             }
@@ -89,7 +84,6 @@ public class RadialGradient : Gradient
             {
                 int x = i;
                 int y = j;
-
                 float colorValue;
                 float distanceToCenter = Mathf.Sqrt(Mathf.Pow(x - halfWidth + position.x, 2) + Mathf.Pow(y - halfHeight + position.y, 2));
                 distanceToCenter = distanceToCenter / (Mathf.Sqrt(2) * halfWidth + Mathf.Abs(position.x) + Mathf.Abs(position.y));

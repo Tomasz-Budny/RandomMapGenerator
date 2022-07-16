@@ -21,17 +21,12 @@ public class GradientTypeManagerCollection
                 {
                     float val = combinedArray[x, y] + gradientMap[x, y];
                     if (val >= 1)
-                    {
                         combinedArray[x, y] = 1;
-                    }
                     else
-                    {
                         combinedArray[x, y] = val;
-                    }
                 }
             }
         }
-
         for (int x = 0; x < width; x++)
         {
             for (int y = 0; y < height; y++)
@@ -39,12 +34,9 @@ public class GradientTypeManagerCollection
                 combinedArray[x, y] = (combinedArray[x, y] - 1) * -1;
             }
         }
-
-                return combinedArray;
+        return combinedArray;
     }
 }
-
-
 [System.Serializable]
 public class GradientTypeManager
 {
@@ -56,16 +48,12 @@ public class GradientTypeManager
 
     public Gradient GenerateGradientBasedOnGradientType()
     {
-        switch (gradientType)
+        return gradientType switch
         {
-            case GradientType.Linear:
-                return new LinearGradient(figureSize);
-            case GradientType.Radial:
-                return new RadialGradient(figureSize, figurePosition);
-            case GradientType.Square:
-                return new SquareGradient(figureSize);
-            default:
-                throw new System.Exception("Unhandled type of gradient!");
-        }
+            GradientType.Linear => new LinearGradient(figureSize),
+            GradientType.Radial => new RadialGradient(figureSize, figurePosition),
+            GradientType.Square => new SquareGradient(figureSize),
+            _ => throw new System.Exception("Unhandled type of gradient!"),
+        };
     }
 }
